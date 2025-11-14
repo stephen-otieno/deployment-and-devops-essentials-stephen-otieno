@@ -24,7 +24,10 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: CLIENT_URL,
+     origin: [
+      process.env.CLIENT_URL,
+      "http://localhost:5173"
+    ],
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -33,7 +36,12 @@ const io = new Server(server, {
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors({ origin: CLIENT_URL }));
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}));
+
+// app.use(cors({ origin: CLIENT_URL }));
 
 
 // Connect to MongoDB

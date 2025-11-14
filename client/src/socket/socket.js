@@ -4,7 +4,12 @@ import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 
 // Socket.io connection URL
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+if (!BASE_URL) {
+  console.error("❌ Missing VITE_BACKEND_URL environment variable!");
+}
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 
